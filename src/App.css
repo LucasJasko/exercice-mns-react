@@ -1,0 +1,133 @@
+#root {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.main {
+  width: 100%;
+}
+
+.search-input {
+  min-width: 700px;
+  padding: 10px;
+}
+
+.snippet-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+}
+
+.snippet-form-input {
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.snippet-form-code {
+  max-width: 100%;
+  min-height: 100px;
+}
+
+.snippet-list {
+  list-style: none;
+  padding: 0;
+}
+
+.snippet-form-submit {
+  background-color: rgb(45, 46, 139);
+  cursor: pointer;
+  margin: 0 auto;
+  padding: 10px 25px;
+  transition: 0.2s ease;
+}
+
+.snippet-form-submit:hover {
+  background-color: rgb(38, 40, 117);
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.item-header-left {
+  display: flex;
+  align-items: baseline;
+  height: 100%;
+}
+
+.item-header-left-edit {
+  align-items: center;
+}
+
+.item-header-right button {
+  margin-left: 5px;
+}
+
+.item-title {
+  margin: 0;
+  margin-right: 5px;
+}
+
+.item-snippet-text {
+  display: inline-block;
+  padding: 3px;
+  border: 1px solid grey;
+  width: 100%;
+  text-align: left;
+  background-color: rgb(68, 68, 68);
+}
+
+.item-snippet-container pre {
+  text-align: left;
+  word-break: break-word;
+}
+
+.line {
+  display: inline-block;
+  background-color: grey;
+  margin: 20px 0;
+  width: 100%;
+  height: 1px;
+}
+
+.edit-item-input {
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.edit-item-code {
+  display: block;
+  overflow: visible;
+  margin: 10px 0;
+  width: calc(100% - 20px);
+}
+
+.edit-item-submit {
+  margin-left: 5px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.edit-item-submit:hover {
+  border-color: #646cff;
+}
+.edit-item-submit:focus,
+.edit-item-submit:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
