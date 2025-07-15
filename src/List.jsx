@@ -5,6 +5,8 @@ const List = ({ snippetList, setSnippetList, keyword }) => {
   const [filteredSnippetList, setFilteredSnippetList] = useState(snippetList);
 
   useEffect(() => {
+    console.log(keyword);
+
     if (keyword == "") {
       setFilteredSnippetList(snippetList);
     } else {
@@ -20,7 +22,7 @@ const List = ({ snippetList, setSnippetList, keyword }) => {
       {filteredSnippetList.length == 0 ? (
         <p>Aucun résultat</p>
       ) : (
-        filteredSnippetList.map((snippet, i) => <Item key={i} index={snippet.id} snippet={snippet} snippetList={snippetList} setSnippetList={setSnippetList} />)
+        filteredSnippetList.map((snippet, i) => <Item key={i} index={i} snippet={snippet} snippetList={snippetList} setSnippetList={setSnippetList} />)
       )}
     </ul>
   );

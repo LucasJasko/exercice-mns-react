@@ -12,13 +12,15 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
   });
 
   useEffect(() => {
+    console.log(index);
+
     setCodeAreaHeight(document.querySelector(`.item-snippet-container${index}`).clientHeight);
   }, []);
 
   function deleteItem(e) {
     e.preventDefault();
-    setSnippetList(snippetList.filter((snippet) => snippet.id !== index));
-    localStorage.setItem("snippetList", JSON.stringify(snippetList.filter((snippet) => snippet.id !== index)));
+    setSnippetList(snippetList.filter((snippet, i) => i !== index));
+    localStorage.setItem("snippetList", JSON.stringify(snippetList.filter((snippet, i) => i !== index)));
   }
 
   function editItem(e) {
@@ -27,8 +29,8 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
 
   function saveNewItem(e) {
     e.preventDefault();
-    setSnippetList(snippetList.map((item) => (item.id == index ? editedItem : snippet)));
-    localStorage.setItem("snippetList", JSON.stringify(snippetList.map((item) => (item.id == index ? editedItem : snippet))));
+    setSnippetList(snippetList.map((item, i) => (i == index ? editedItem : snippet)));
+    localStorage.setItem("snippetList", JSON.stringify(snippetList.map((item, i) => (i == index ? editedItem : snippet))));
     setEditing(!editing);
   }
 

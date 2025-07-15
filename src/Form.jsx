@@ -3,7 +3,6 @@ import { useState } from "react";
 const Form = ({ snippetList, setSnippetList }) => {
   const [error, setError] = useState();
   const [itemData, setItemData] = useState({
-    id: snippetList.length + 1,
     title: "",
     language: "",
     code: "",
