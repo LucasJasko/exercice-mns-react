@@ -2,18 +2,24 @@ import { useEffect, useState } from "react";
 import Item from "./Item";
 
 const List = ({ snippetList, setSnippetList, keyword }) => {
-  const [filteredSnippetList, setFilteredSnippetList] = useState(snippetList);
+  const [filteredSnippetList, setFilteredSnippetList] = useState([]);
+
+  useEffect(() => {
+    setFilteredSnippetList(snippetList);
+  }, []);
 
   useEffect(() => {
     console.log(keyword);
-
     if (keyword == "") {
       setFilteredSnippetList(snippetList);
     } else {
       const filtered = snippetList.filter(
         (snippet) => snippet.title.toLowerCase().includes(keyword.toLowerCase()) || snippet.language.toLowerCase().includes(keyword.toLowerCase())
       );
+
       setFilteredSnippetList(filtered);
+      console.log(filtered);
+      console.log(filteredSnippetList);
     }
   }, [keyword, snippetList]);
 

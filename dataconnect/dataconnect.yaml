@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "exercice-mns-react"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "exercice-mns-react-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

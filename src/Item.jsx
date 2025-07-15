@@ -12,9 +12,7 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
   });
 
   useEffect(() => {
-    console.log(index);
-
-    setCodeAreaHeight(document.querySelector(`.item-snippet-container${index}`).clientHeight);
+    setCodeAreaHeight(document.querySelector(`.item-snippet-container-${index}`).clientHeight);
   }, []);
 
   function deleteItem(e) {
@@ -81,7 +79,7 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
               <button onClick={deleteItem}>Supprimer</button>
             </div>
           </div>
-          <div className={`item-snippet-container item-snippet-container${index}`}>
+          <div className={`item-snippet-container item-snippet-container-${index}`}>
             <SyntaxHighlighter style={dark}>{editedItem.code}</SyntaxHighlighter>
             {/* <code className="item-snippet-text">{snippet.code}</code> */}
           </div>
