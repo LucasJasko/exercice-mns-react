@@ -1,5 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 const Signin = () => {
   const [userInfos, setUserInfos] = useState({
@@ -12,11 +13,12 @@ const Signin = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (userInfos.password != "" && userInfos.email != "") {
+    if (userInfos.password != "" && userInfos.email != "" && userInfos.pseudo != "") {
       if (userInfos.password.length > 6) {
         createUserWithEmailAndPassword(getAuth(), userInfos.email, userInfos.password)
           .then((userCredential) => {
-            const user = userCredential.user;
+            const uid = userCredential.user.uid;
+            set(ref(getDatabase(), `${uid}/userInfos`), { pseudo: userInfos.pseudo });
             setError("Inscription validé !");
           })
           .catch((error) => setError(error.message));
