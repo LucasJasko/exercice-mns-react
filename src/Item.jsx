@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { getDatabase, ref, onValue, set, update } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
-const Item = ({ index, snippet, snippetList, setSnippetList }) => {
+const Item = ({ uid, index, snippet, snippetList, setSnippetList }) => {
   const [editing, setEditing] = useState(false);
   const [codeAreaHeight, setCodeAreaHeight] = useState();
   const [editedItem, setEditedItem] = useState({
@@ -25,14 +26,14 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
     e.preventDefault();
     const newList = snippetList.filter((snippet, i) => i !== index);
     setSnippetList(newList);
-    set(ref(getDatabase(), "snippetList"), newList);
+    set(ref(getDatabase(), `${uid}/snippetList`), newList);
   }
 
   function saveNewItem(e) {
     e.preventDefault();
     const newList = snippetList.map((item, i) => (i == index ? editedItem : item));
     newList.map((item, i) => {
-      if (i == index) update(ref(getDatabase(), `snippetList/${i}`), editedItem);
+      if (i == index) update(ref(getDatabase(), `${uid}/snippetList/${i}`), editedItem);
     });
 
     setSnippetList(newList);

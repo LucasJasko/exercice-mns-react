@@ -2,7 +2,7 @@ import "../firebase.js";
 import { useState } from "react";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 
-const Form = ({ snippetList, setSnippetList }) => {
+const Form = ({ uid, snippetList, setSnippetList }) => {
   const [error, setError] = useState();
   const [itemData, setItemData] = useState({
     title: "",
@@ -15,7 +15,7 @@ const Form = ({ snippetList, setSnippetList }) => {
 
     if (itemData.code != "" && itemData.title != "" && itemData.language != "") {
       setSnippetList([...snippetList, itemData]);
-      set(ref(getDatabase(), "snippetList"), [...snippetList, itemData]);
+      set(ref(getDatabase(), `${uid}/snippetList`), [...snippetList, itemData]);
       setItemData({
         title: "",
         language: "",

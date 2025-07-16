@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Item from "./Item";
 
-const List = ({ snippetList, setSnippetList, keyword }) => {
+const List = ({ userInfos, snippetList, setSnippetList, keyword }) => {
   const [filteredSnippetList, setFilteredSnippetList] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,9 @@ const List = ({ snippetList, setSnippetList, keyword }) => {
       {filteredSnippetList.length == 0 ? (
         <p>Aucun résultat</p>
       ) : (
-        filteredSnippetList.map((snippet, i) => <Item key={i} index={i} snippet={snippet} snippetList={snippetList} setSnippetList={setSnippetList} />)
+        filteredSnippetList.map((snippet, i) => (
+          <Item key={i} index={i} uid={userInfos.uid} snippet={snippet} snippetList={snippetList} setSnippetList={setSnippetList} />
+        ))
       )}
     </ul>
   );

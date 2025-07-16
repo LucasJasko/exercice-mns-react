@@ -2,26 +2,40 @@ import Form from "./Form";
 import Search from "./Search";
 import List from "./List";
 import "../firebase.js";
+import { getAuth } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({ disconnectUser }) => {
   const [snippetList, setSnippetList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [userInfos, setUserInfos] = useState({});
 
   useEffect(() => {
-    onValue(ref(getDatabase(), "snippetList"), (snapshot) => {
+    const user = getAuth().currentUser;
+    console.log(user.uid);
+
+    setUserInfos(user);
+
+    onValue(ref(getDatabase(), `${user.uid}/snippetList`), (snapshot) => {
       if (snapshot.val()) setSnippetList(snapshot.val());
     });
   }, []);
 
   return (
     <div className="main">
+      <div className="topbar">
+        <p className="topbar-left">Connecté en tant que {userInfos.email}</p>
+        <button className="topbar-right" onClick={disconnectUser}>
+          Déconnexion
+        </button>
+      </div>
       <h1>Snippet collector</h1>
       <Search setKeyword={setKeyword} />
       <span className="line"></span>
-      <Form snippetList={snippetList} setSnippetList={setSnippetList} />
+      <Form uid={userInfos.uid} snippetList={snippetList} setSnippetList={setSnippetList} />
       <span className="line"></span>
-      <List snippetList={snippetList} setSnippetList={setSnippetList} keyword={keyword} />
+      <List userInfos={userInfos} snippetList={snippetList} setSnippetList={setSnippetList} keyword={keyword} />
     </div>
   );
 };

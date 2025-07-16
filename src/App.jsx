@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 import "../firebase.js";
+
 import Login from "./Login";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Signin from "./Signin.jsx";
 import Home from "./Home.jsx";
+import Signin from "./Signin.jsx";
+
+import { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -13,20 +15,22 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
-        const uid = user.uid;
         setIsConnected(true);
-        console.log(uid);
       } else {
         setIsConnected(false);
-        console.log("Non connecté");
       }
     });
   }, []);
 
+  function disconnectUser() {
+    getAuth().signOut();
+    setIsConnected(false);
+  }
+
   return (
     <>
       {isConnected ? (
-        <Home />
+        <Home disconnectUser={disconnectUser} />
       ) : (
         <>
           {isLoging ? <Login /> : <Signin />} <button onClick={() => setIsLoging(!isLoging)}>{isLoging ? "S'inscrire" : "Se connecter"}</button>

@@ -9,6 +9,11 @@
   width: 100%;
 }
 
+.topbar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search-input {
   width: 100%;
   padding: 10px;
