@@ -1,35 +1,38 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import "../firebase.js";
-import Form from "./Form";
-import Search from "./Search";
-import List from "./List";
-import { getDatabase, ref, onValue } from "firebase/database";
+import Login from "./Login";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Signin from "./Signin.jsx";
+import Home from "./Home.jsx";
 
 function App() {
-  const [snippetList, setSnippetList] = useState([]);
-  const [keyword, setKeyword] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
+  const [isLoging, setIsLoging] = useState(true);
 
   useEffect(() => {
-    let remoteStorage = getDatabase();
-
-    let storage = JSON.parse(localStorage.getItem("snippetList"));
-    if (Array.isArray(storage)) {
-      setSnippetList(JSON.parse(localStorage.getItem("snippetList")));
-    } else {
-      setSnippetList([]);
-    }
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        const uid = user.uid;
+        setIsConnected(true);
+        console.log(uid);
+      } else {
+        setIsConnected(false);
+        console.log("Non connecté");
+      }
+    });
   }, []);
 
   return (
-    <div className="main">
-      <h1>Snippet collector</h1>
-      <Search setKeyword={setKeyword} />
-      <span className="line"></span>
-      <Form snippetList={snippetList} setSnippetList={setSnippetList} />
-      <span className="line"></span>
-      <List snippetList={snippetList} setSnippetList={setSnippetList} keyword={keyword} />
-    </div>
+    <>
+      {isConnected ? (
+        <Home />
+      ) : (
+        <>
+          {isLoging ? <Login /> : <Signin />} <button onClick={() => setIsLoging(!isLoging)}>{isLoging ? "S'inscrire" : "Se connecter"}</button>
+        </>
+      )}
+    </>
   );
 }
 

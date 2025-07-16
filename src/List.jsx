@@ -9,7 +9,6 @@ const List = ({ snippetList, setSnippetList, keyword }) => {
   }, []);
 
   useEffect(() => {
-    console.log(keyword);
     if (keyword == "") {
       setFilteredSnippetList(snippetList);
     } else {
@@ -18,8 +17,6 @@ const List = ({ snippetList, setSnippetList, keyword }) => {
       );
 
       setFilteredSnippetList(filtered);
-      console.log(filtered);
-      console.log(filteredSnippetList);
     }
   }, [keyword, snippetList]);
 

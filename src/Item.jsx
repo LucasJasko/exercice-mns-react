@@ -1,6 +1,8 @@
+import "../firebase.js";
 import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { getDatabase, ref, onValue, set, update } from "firebase/database";
 
 const Item = ({ index, snippet, snippetList, setSnippetList }) => {
   const [editing, setEditing] = useState(false);
@@ -15,20 +17,25 @@ const Item = ({ index, snippet, snippetList, setSnippetList }) => {
     setCodeAreaHeight(document.querySelector(`.item-snippet-container-${index}`).clientHeight);
   }, []);
 
-  function deleteItem(e) {
-    e.preventDefault();
-    setSnippetList(snippetList.filter((snippet, i) => i !== index));
-    localStorage.setItem("snippetList", JSON.stringify(snippetList.filter((snippet, i) => i !== index)));
-  }
-
   function editItem(e) {
     setEditing(!editing);
   }
 
+  function deleteItem(e) {
+    e.preventDefault();
+    const newList = snippetList.filter((snippet, i) => i !== index);
+    setSnippetList(newList);
+    set(ref(getDatabase(), "snippetList"), newList);
+  }
+
   function saveNewItem(e) {
     e.preventDefault();
-    setSnippetList(snippetList.map((item, i) => (i == index ? editedItem : snippet)));
-    localStorage.setItem("snippetList", JSON.stringify(snippetList.map((item, i) => (i == index ? editedItem : snippet))));
+    const newList = snippetList.map((item, i) => (i == index ? editedItem : item));
+    newList.map((item, i) => {
+      if (i == index) update(ref(getDatabase(), `snippetList/${i}`), editedItem);
+    });
+
+    setSnippetList(newList);
     setEditing(!editing);
   }
 
