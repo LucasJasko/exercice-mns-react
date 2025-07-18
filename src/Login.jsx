@@ -26,7 +26,8 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Connexion</h1>
+      <h1>Snippet Collector</h1>
+      <p>Connexion</p>
       <form className="snippet-form" onSubmit={handleSubmit}>
         <input
           type="text"

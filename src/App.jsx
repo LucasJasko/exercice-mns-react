@@ -14,11 +14,7 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(getAuth(), (user) => {
-      if (user) {
-        setIsConnected(true);
-      } else {
-        setIsConnected(false);
-      }
+      user ? setIsConnected(true) : setIsConnected(false);
     });
   }, []);
 

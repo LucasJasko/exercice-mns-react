@@ -32,7 +32,8 @@ const Signin = () => {
 
   return (
     <div>
-      <h1>Inscription</h1>
+      <h1>Snippet Collector</h1>
+      <p>Inscription</p>
       <form className="snippet-form" onSubmit={handleSubmit}>
         <input
           type="text"
