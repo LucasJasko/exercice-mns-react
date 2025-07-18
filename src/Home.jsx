@@ -21,21 +21,17 @@ const Home = ({ disconnectUser }) => {
     onValue(ref(getDatabase(), `${user.uid}/userInfos/pseudo`), (snapshot) => {
       if (snapshot.val()) {
         setUserInfos({ pseudo: snapshot.val(), uid: user.uid });
-        isUserInfos = true;
-        if (isUserInfos && isSnippetList) {
-          setIsLoading(false);
-        }
       }
+      isUserInfos = true;
+      if (isUserInfos && isSnippetList) setIsLoading(false);
     });
 
     onValue(ref(getDatabase(), `${user.uid}/snippetList`), (snapshot) => {
       if (snapshot.val()) {
         setSnippetList(snapshot.val());
-        isSnippetList = true;
-        if (isUserInfos && isSnippetList) {
-          setIsLoading(false);
-        }
       }
+      isSnippetList = true;
+      if (isUserInfos && isSnippetList) setIsLoading(false);
     });
   }, []);
 

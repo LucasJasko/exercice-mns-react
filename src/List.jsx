@@ -23,7 +23,11 @@ const List = ({ userInfos, snippetList, setSnippetList, keyword }) => {
   return (
     <ul className="snippet-list">
       {filteredSnippetList.length == 0 ? (
-        <p>Aucun résultat</p>
+        keyword == "" ? (
+          <p></p>
+        ) : (
+          <p>Aucun résultat</p>
+        )
       ) : (
         filteredSnippetList.map((snippet, i) => (
           <Item key={i} index={i} uid={userInfos.uid} snippet={snippet} snippetList={snippetList} setSnippetList={setSnippetList} />

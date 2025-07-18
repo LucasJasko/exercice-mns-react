@@ -11,10 +11,6 @@ const Form = ({ userInfos, snippetList, setSnippetList }) => {
     code: "",
   });
 
-  useEffect(() => {
-    console.log(userInfos);
-  }, []);
-
   function handleSubmit(e) {
     e.preventDefault();
 
