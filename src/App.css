@@ -10,6 +10,7 @@
 }
 
 .topbar {
+  max-height: 42px;
   display: flex;
   justify-content: space-between;
 }
