@@ -1,6 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const Login = () => {
   const [userInfos, setUserInfos] = useState({

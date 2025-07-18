@@ -15,12 +15,12 @@ const Home = ({ disconnectUser }) => {
   useEffect(() => {
     let isUserInfos = false;
     let isSnippetList = false;
+
     const user = getAuth().currentUser;
-    setUserInfos(user);
 
     onValue(ref(getDatabase(), `${user.uid}/userInfos/pseudo`), (snapshot) => {
       if (snapshot.val()) {
-        setUserInfos({ ...userInfos, pseudo: snapshot.val() });
+        setUserInfos({ pseudo: snapshot.val(), uid: user.uid });
         isUserInfos = true;
         if (isUserInfos && isSnippetList) {
           setIsLoading(false);
